@@ -1,0 +1,158 @@
+/* ======================================= */
+/* 0. CSS CÓ SẴN VÀ CƠ BẢN (MOBILE-FIRST) */
+/* ======================================= */
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: #dedede;
+    padding: 5px;
+    margin: 15px;
+    font-size: 25px;
+    font-family: Arial, sans-serif;
+    color: #333333;
+}
+
+h1 {
+    text-align: center;
+    font-family: Arial, sans-serif;
+    font-size: 1.95em;
+}
+
+h2 {
+    text-align: center;
+}
+
+li {
+    margin-top: 20px;
+}
+
+.label {
+    text-align: center;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+header, footer {
+    text-align: center;
+    padding: 10px 0;
+    background-color: #ffffff;
+    border-bottom: 1px solid #cccccc;
+    margin: -15px -5px; /* Điều chỉnh để lấp đầy padding/margin của body */
+}
+
+main {
+    padding: 20px 0;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+figure {
+    border: 2px solid #555555;
+    padding: 10px;
+    margin: 10px; /* Điều chỉnh margin để khớp với khoảng cách 10px trong grid */
+    background-color: #eeeeee;
+    text-align: center;
+}
+
+figure img {
+    /* Reset img để figure kiểm soát */
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto 10px;
+    border-radius: 0; 
+    border: none; 
+}
+
+/* Yêu cầu Mobile View (Phác thảo 2): Hai cột, gap 10px */
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* HAI CỘT ngay từ mobile */
+    gap: 10px;
+}
+
+/* ======================================= */
+/* 1. TABLET VIEW (min-width: 772px) */
+/* Phác thảo 2 không có chế độ xem Tablet cụ thể riêng cho Figure,
+   nên nó sẽ giữ nguyên bố cục 2 cột từ Mobile.
+   Nếu bạn muốn thay đổi gì đó ở Tablet, hãy thêm vào đây.
+   Hiện tại, không có thay đổi figure cụ thể nào so với Mobile cho Tablet.
+*/
+@media screen and (min-width: 772px) {
+    /* Ví dụ: Nếu bạn muốn figure tròn ở Tablet như phác thảo trước, hãy thêm vào đây: */
+    /* figure {
+        border-radius: 50%;
+        overflow: hidden;
+    } */
+}
+
+
+/* ======================================= */
+/* 2. LARGE SCREEN VIEW (min-width: 992px) */
+/* Yêu cầu (Phác thảo 2): Bố cục 2 cột với một figure ở giữa chiếm 2 cột */
+/* ======================================= */
+@media screen and (min-width: 992px) {
+    figure {
+        border-radius: 0; /* Loại bỏ hình tròn (nếu có từ Tablet) */
+    }
+
+    .grid {
+        grid-template-columns: 1fr 1fr; /* Vẫn giữ 2 cột */
+        /* display: grid; không cần lặp lại */
+    }
+
+    /* Figure thứ 3 (hoặc figure nào bạn muốn làm nổi bật) sẽ chiếm 2 cột */
+    .grid figure:nth-child(3) { /* Thay số '3' bằng index của figure bạn muốn chiếm 2 cột */
+        grid-column: 1 / span 2;
+    }
+    /* Bạn có thể thêm các quy tắc khác nếu muốn thay đổi vị trí các figure còn lại */
+    /* Ví dụ: để đảm bảo các figure khác vẫn xếp đúng hàng */
+    .grid figure:not(:nth-child(3)) {
+        grid-column: auto; /* Đảm bảo các figure khác không bị ảnh hưởng */
+    }
+}
+
+
+/* ======================================= */
+/* 3. TÙY CHỌN NGƯỜI DÙNG: Reduced Motion */
+/* Yêu cầu: Bỏ scroll behavior */
+/* ======================================= */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto; /* Loại bỏ scroll mượt */
+    }
+
+    * {
+        /* Bỏ transition và animation trên toàn trang */
+        transition-duration: 0s !important;
+        animation-duration: 0s !important;
+    }
+}
+
+/* ======================================= */
+/* 4. TÙY CHỌN NGƯỜI DÙNG: Dark Color Scheme */
+/* Yêu cầu: Dark background, light/yellow-ish font, black border */
+/* ======================================= */
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #1a1a1a; /* Nền tối cho body */
+        color: #f4f4f4; /* Chữ sáng */
+    }
+
+    header, footer {
+        background-color: #2c2c2c;
+        border-bottom: 1px solid #444444;
+    }
+
+    figure {
+        background-color: #333333; /* Màu nền tối cho figures */
+        color: #ffffa0; /* Màu chữ nhạt (vàng nhạt) cho figures */
+        border: 2px solid #000000; /* Màu viền đen */
+    }
+
+    footer a {
+        color: #99ccff;
+    }
+}
